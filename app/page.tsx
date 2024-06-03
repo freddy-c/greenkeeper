@@ -1,21 +1,24 @@
 import { PrismaClient } from "@prisma/client";
+import DeleteForm from "./delete-form";
+import AddForm from "./add-form";
 
 const db = new PrismaClient();
 
 export default async function Home() {
-  const products = await db.product.findMany();
+    const manufacturers = await db.manufacturer.findMany();
 
-  return (
-    <div>
-      <h1>Product List</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            <h2>{product.name}</h2>
-            <p>{product.manufacturerId}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    return (
+        <div>
+            <h1 className="text-lg font-semibold">Manufacturer List</h1>
+            <ul>
+                {manufacturers.map((manufacturer) => (
+                    <li key={manufacturer.id} className="mb-4">
+                        <h2>{manufacturer.name}</h2>
+                        <DeleteForm manufacturerId={manufacturer.id} />
+                    </li>
+                ))}
+            </ul>
+            <AddForm />
+        </div>
+    );
 }
