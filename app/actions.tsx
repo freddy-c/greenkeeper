@@ -10,40 +10,6 @@ const schema = z.object({
     name: z.string().min(1).trim(),
 });
 
-// export async function createManufacturer(
-//     prevState: {
-//         message: string;
-//     },
-//     formData: FormData
-// ) {
-//     const schema = z.object({
-//         name: z.string().min(1),
-//     });
-//     const parsed = schema.safeParse({
-//         name: formData.get("name"),
-//     });
-
-//     if (!parsed.success) {
-//         return { message: "Failed to create manufacturer" };
-//     }
-
-//     const data = parsed.data;
-
-//     try {
-//         console.log("Creating manufacturer...");
-//         const newManufacturer = await db.manufacturer.create({
-//             data: {
-//                 name: data.name,
-//             },
-//         });
-
-//         revalidatePath("/");
-//         return { message: `Added manufacturer ${data.name}` };
-//     } catch (e) {
-//         return { message: "Failed to create manufacturer" };
-//     }
-// }
-
 export async function createManufacturer(
     data: z.infer<typeof schema>
 ): Promise<{
