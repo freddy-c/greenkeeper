@@ -24,10 +24,7 @@ export default function AddForm() {
         resolver: zodResolver(schema),
     });
     const onSubmit = async (data: z.infer<typeof schema>) => {
-        console.log(data);
         const response = await createManufacturer(data);
-
-        console.log(response);
 
         if (!response.success) {
             response.issues?.forEach((issue) => {
@@ -50,7 +47,7 @@ export default function AddForm() {
         >
             <div className="flex flex-col">
                 <label htmlFor="name">Name</label>
-                <input {...register("name")} className="border" />
+                <input id="name" {...register("name")} className="border" />
                 {errors.name && <p>{errors.name.message}</p>}
             </div>
             <input
