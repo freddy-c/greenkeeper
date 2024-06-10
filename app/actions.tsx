@@ -3,16 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "./client";
-import { Manufacturer } from "@prisma/client";
+import { Item, Manufacturer } from "@prisma/client";
+import { AddManufacturerSchema, AddItemSchema } from "./schemas";
 
 const db = prisma;
 
-const schema = z.object({
-    name: z.string().min(1).trim(),
-});
-
 export async function createManufacturer(
-    data: z.infer<typeof schema>
+    data: z.infer<typeof AddManufacturerSchema>
 ): Promise<{
     success: boolean;
     manufacturer?: Manufacturer;
@@ -21,7 +18,7 @@ export async function createManufacturer(
         message: string;
     }[];
 }> {
-    const parsed = schema.safeParse(data);
+    const parsed = AddManufacturerSchema.safeParse(data);
 
     if (!parsed.success) {
         return {
@@ -97,5 +94,54 @@ export async function deleteManufacturer(
         return { message: `Deleted manufacturer with id: ${data.id}` };
     } catch (e) {
         return { message: "Failed to delete manufacturer" };
+    }
+}
+
+export async function createItem(data: z.infer<typeof AddItemSchema>): Promise<{
+    success: boolean;
+    item?: Item;
+    issues?: {
+        path: any;
+        message: string;
+    }[];
+}> {
+    const parsed = AddItemSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            issues: parsed.error.issues.map((issue) => {
+                return { path: issue.path, message: issue.message };
+            }),
+        };
+    }
+
+    try {
+        const newItem = await db.item.create({
+            data: {
+                product: {
+                    connect: {
+                        id: parsed.data.product.value,
+                    },
+                },
+                distributor: {
+                    connect: {
+                        id: parsed.data.distributor.value,
+                    },
+                },
+                price: parsed.data.price,
+                purchaseDate: new Date(parsed.data.purchaseDate),
+                initialQuantity: parsed.data.initialQuantity,
+                currentQuantity: parsed.data.currentQuantity,
+            },
+        });
+
+        revalidatePath("/");
+        return {
+            success: true,
+            item: newItem,
+        };
+    } catch (e) {
+        return { success: false };
     }
 }
