@@ -1,10 +1,11 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import prisma from "./client";
+import { Manufacturer } from "@prisma/client";
 
-const db = new PrismaClient();
+const db = prisma;
 
 const schema = z.object({
     name: z.string().min(1).trim(),
@@ -14,6 +15,7 @@ export async function createManufacturer(
     data: z.infer<typeof schema>
 ): Promise<{
     success: boolean;
+    manufacturer?: Manufacturer;
     issues?: {
         path: any;
         message: string;
@@ -49,7 +51,6 @@ export async function createManufacturer(
     }
 
     try {
-        console.log("Creating manufacturer...");
         const newManufacturer = await db.manufacturer.create({
             data: {
                 name: parsed.data.name,
@@ -57,7 +58,10 @@ export async function createManufacturer(
         });
 
         revalidatePath("/");
-        return { success: true };
+        return {
+            success: true,
+            manufacturer: newManufacturer,
+        };
     } catch (e) {
         return { success: false };
     }
@@ -83,7 +87,6 @@ export async function deleteManufacturer(
     const data = parsed.data;
 
     try {
-        console.log("Deleting manufacturer...");
         await db.manufacturer.delete({
             where: {
                 id: data.id,

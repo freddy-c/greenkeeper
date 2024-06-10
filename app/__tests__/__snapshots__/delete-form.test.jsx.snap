@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteForm renders correctly 1`] = `
+<form
+  action=""
+>
+  <input
+    name="id"
+    type="hidden"
+    value="123e4567-e89b-12d3-a456-426614174000"
+  />
+  <button
+    aria-disabled={false}
+    className="border hover:cursor-pointer"
+    type="submit"
+  >
+    Delete
+  </button>
+</form>
+`;
