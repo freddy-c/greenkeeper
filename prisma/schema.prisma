@@ -14,14 +14,59 @@ datasource db {
 }
 
 model Product {
-  id             String       @id @default(uuid())
+  id             String        @id @default(uuid())
   name           String
-  manufacturer   Manufacturer @relation(fields: [manufacturerId], references: [id])
+  manufacturer   Manufacturer  @relation(fields: [manufacturerId], references: [id])
   manufacturerId String
+  distributors   Distributor[]
+  Item           Item[]
 }
 
 model Manufacturer {
   id       String    @id @default(uuid())
   name     String
   products Product[]
+}
+
+model Distributor {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+  Item     Item[]
+}
+
+model Item {
+  id               String             @id @default(uuid())
+  product          Product            @relation(fields: [productId], references: [id])
+  price            Float
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  distributor      Distributor        @relation(fields: [distributorId], references: [id])
+  productId        String
+  distributorId    String
+  purchaseDate     DateTime
+  initialQuantity  Float
+  currentQuantity  Float
+  ApplicationItems ApplicationItems[]
+}
+
+model Application {
+  id               String             @id @default(uuid())
+  date             DateTime
+  operator         String
+  ApplicationItems ApplicationItems[]
+  waterVolume      Float
+  temperature      Float
+  windSpeed        Float
+  observations     String
+}
+
+model ApplicationItems {
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String
+  item          Item        @relation(fields: [itemId], references: [id])
+  itemId        String
+  quantity      Float
+
+  @@id([applicationId, itemId])
 }
