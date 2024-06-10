@@ -23,6 +23,6 @@
             "@/components/*": ["components/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/__tests__/actions.test.jsx", "app/singleton.jsx", "app/__tests__/actions.test.jsx", "app/__tests__/add-form.test.jsx"],
     "exclude": ["node_modules"]
 }

@@ -9,10 +9,6 @@ const schema = z.object({
     name: z.string().min(1).trim(),
 });
 
-const initialState = {
-    message: "",
-};
-
 export default function AddForm() {
     const {
         register,
