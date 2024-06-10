@@ -4,10 +4,9 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createManufacturer } from "@/app/actions";
+import { AddManufacturerSchema } from "./schemas";
 
-const schema = z.object({
-    name: z.string().min(1).trim(),
-});
+type AddFormValues = z.infer<typeof AddManufacturerSchema>;
 
 export default function AddForm() {
     const {
@@ -16,10 +15,10 @@ export default function AddForm() {
         reset,
         handleSubmit,
         formState: { errors },
-    } = useForm<z.infer<typeof schema>>({
-        resolver: zodResolver(schema),
+    } = useForm<AddFormValues>({
+        resolver: zodResolver(AddManufacturerSchema),
     });
-    const onSubmit = async (data: z.infer<typeof schema>) => {
+    const onSubmit = async (data: AddFormValues) => {
         const response = await createManufacturer(data);
 
         if (!response.success) {
