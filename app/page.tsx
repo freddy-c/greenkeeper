@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import DeleteForm from "./delete-form";
-import AddForm from "./add-form";
 
 const db = new PrismaClient();
 
@@ -9,7 +8,9 @@ export default async function Home() {
 
     return (
         <div>
-            <h1 className="text-lg font-semibold">Manufacturer List</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">
+                Manufacturer List
+            </h1>
             <ul>
                 {manufacturers.map((manufacturer) => (
                     <li key={manufacturer.id} className="mb-4">
@@ -18,7 +19,6 @@ export default async function Home() {
                     </li>
                 ))}
             </ul>
-            <AddForm />
         </div>
     );
 }

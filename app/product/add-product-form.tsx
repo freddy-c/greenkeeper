@@ -43,7 +43,13 @@ export default function AddProductForm({
                 });
             });
         } else {
-            form.reset();
+            form.reset({
+                name: "",
+                manufacturer: {
+                    value: "",
+                    label: "",
+                },
+            });
         }
     };
 

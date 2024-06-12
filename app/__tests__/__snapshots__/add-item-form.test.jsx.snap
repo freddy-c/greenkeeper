@@ -1,320 +1,418 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AddItemForm renders correctly 1`] = `
-<form
+<div
   className="space-y-6 max-w-lg mx-auto"
-  onSubmit={[Function]}
 >
-  <div
-    className="form-group"
+  <form
+    className="space-y-8"
+    onSubmit={[Function]}
   >
-    <label
-      className="block text-gray-700 font-medium mb-2"
-      htmlFor="productOptions"
-    >
-      Product
-    </label>
     <div
-      className="w-full css-b62m3t-container"
-      onKeyDown={[Function]}
+      className="space-y-2"
     >
-      <span
-        className="css-1f43avz-a11yText-A11yText"
-        id="react-select-2-live-region"
-      />
-      <span
-        aria-atomic="false"
-        aria-live="polite"
-        aria-relevant="additions text"
-        className="css-1f43avz-a11yText-A11yText"
-        role="log"
-      />
-      <div
-        className=" css-13cymwt-control"
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r0:-form-item"
         onMouseDown={[Function]}
-        onTouchEnd={[Function]}
       >
+        Product
+      </label>
+      <div
+        className="w-full css-b62m3t-container"
+        id=":r0:-form-item"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-2-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+          role="log"
+        />
         <div
-          className=" css-1fdsijx-ValueContainer"
+          className=" css-1kup72l-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
         >
           <div
-            className=" css-1jqq78o-placeholder"
-            id="react-select-2-placeholder"
+            className=" css-1fdsijx-ValueContainer"
           >
-            Select a product
-          </div>
-          <div
-            className=" css-qbdosj-Input"
-            data-value=""
-          >
-            <input
-              aria-activedescendant=""
-              aria-autocomplete="list"
-              aria-describedby="react-select-2-placeholder"
-              aria-expanded={false}
-              aria-haspopup={true}
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              className=""
-              disabled={false}
-              id="productOptions"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              role="combobox"
-              spellCheck="false"
-              style={
-                {
-                  "background": 0,
-                  "border": 0,
-                  "color": "inherit",
-                  "font": "inherit",
-                  "gridArea": "1 / 2",
-                  "label": "input",
-                  "margin": 0,
-                  "minWidth": "2px",
-                  "opacity": 1,
-                  "outline": 0,
-                  "padding": 0,
-                  "width": "100%",
-                }
-              }
-              tabIndex={0}
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          className=" css-1hb7zxy-IndicatorsContainer"
-        >
-          <span
-            className=" css-1u9des2-indicatorSeparator"
-          />
-          <div
-            aria-hidden="true"
-            className=" css-1xc3v61-indicatorContainer"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="css-tj5bde-Svg"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
+            <div
+              className=" css-dfjav8-placeholder"
+              id="react-select-2-placeholder"
             >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+              Select a product
+            </div>
+            <div
+              className=" css-qbdosj-Input"
+              data-value=""
+            >
+              <input
+                aria-activedescendant=""
+                aria-autocomplete="list"
+                aria-describedby="react-select-2-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-invalid={false}
+                aria-label="product"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="productOptions"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
               />
-            </svg>
+            </div>
+          </div>
+          <div
+            className=" css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              className=" css-1u9des2-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-1xc3v61-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-tj5bde-Svg"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
           </div>
         </div>
+        <input
+          name="product"
+          type="hidden"
+          value=""
+        />
       </div>
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r0:-form-item-description"
+      >
+        This is the product being added to the inventory.
+      </p>
+    </div>
+    <div
+      className="space-y-2"
+    >
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r1:-form-item"
+        onMouseDown={[Function]}
+      >
+        Distributor
+      </label>
+      <div
+        className="w-full css-b62m3t-container"
+        id=":r1:-form-item"
+        onKeyDown={[Function]}
+      >
+        <span
+          className="css-1f43avz-a11yText-A11yText"
+          id="react-select-3-live-region"
+        />
+        <span
+          aria-atomic="false"
+          aria-live="polite"
+          aria-relevant="additions text"
+          className="css-1f43avz-a11yText-A11yText"
+          role="log"
+        />
+        <div
+          className=" css-1kup72l-control"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <div
+            className=" css-1fdsijx-ValueContainer"
+          >
+            <div
+              className=" css-dfjav8-placeholder"
+              id="react-select-3-placeholder"
+            >
+              Select a distributor
+            </div>
+            <div
+              className=" css-qbdosj-Input"
+              data-value=""
+            >
+              <input
+                aria-activedescendant=""
+                aria-autocomplete="list"
+                aria-describedby="react-select-3-placeholder"
+                aria-expanded={false}
+                aria-haspopup={true}
+                aria-invalid={false}
+                aria-label="distributor"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                className=""
+                disabled={false}
+                id="distributorOptions"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                role="combobox"
+                spellCheck="false"
+                style={
+                  {
+                    "background": 0,
+                    "border": 0,
+                    "color": "inherit",
+                    "font": "inherit",
+                    "gridArea": "1 / 2",
+                    "label": "input",
+                    "margin": 0,
+                    "minWidth": "2px",
+                    "opacity": 1,
+                    "outline": 0,
+                    "padding": 0,
+                    "width": "100%",
+                  }
+                }
+                tabIndex={0}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className=" css-1hb7zxy-IndicatorsContainer"
+          >
+            <span
+              className=" css-1u9des2-indicatorSeparator"
+            />
+            <div
+              aria-hidden="true"
+              className=" css-1xc3v61-indicatorContainer"
+              onMouseDown={[Function]}
+              onTouchEnd={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="css-tj5bde-Svg"
+                focusable="false"
+                height={20}
+                viewBox="0 0 20 20"
+                width={20}
+              >
+                <path
+                  d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <input
+          name="distributor"
+          type="hidden"
+          value=""
+        />
+      </div>
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r1:-form-item-description"
+      >
+        This is the distributor you bought the product from.
+      </p>
+    </div>
+    <div
+      className="space-y-2"
+    >
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r2:-form-item"
+        onMouseDown={[Function]}
+      >
+        Price
+      </label>
       <input
-        name="product"
-        type="hidden"
+        aria-describedby=":r2:-form-item-description"
+        aria-invalid={false}
+        aria-label="price"
+        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id=":r2:-form-item"
+        name="price"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="number"
         value=""
       />
-    </div>
-  </div>
-  <div
-    className="form-group"
-  >
-    <label
-      className="block text-gray-700 font-medium mb-2"
-      htmlFor="distributorOptions"
-    >
-      Distributor
-    </label>
-    <div
-      className="w-full css-b62m3t-container"
-      onKeyDown={[Function]}
-    >
-      <span
-        className="css-1f43avz-a11yText-A11yText"
-        id="react-select-3-live-region"
-      />
-      <span
-        aria-atomic="false"
-        aria-live="polite"
-        aria-relevant="additions text"
-        className="css-1f43avz-a11yText-A11yText"
-        role="log"
-      />
-      <div
-        className=" css-13cymwt-control"
-        onMouseDown={[Function]}
-        onTouchEnd={[Function]}
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r2:-form-item-description"
       >
-        <div
-          className=" css-1fdsijx-ValueContainer"
+        This is the price of the product.
+      </p>
+    </div>
+    <div
+      className="space-y-2 flex flex-col"
+    >
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r3:-form-item"
+        onMouseDown={[Function]}
+      >
+        Purchase Date
+      </label>
+      <button
+        aria-controls="radix-:r4:"
+        aria-describedby=":r3:-form-item-description"
+        aria-expanded={false}
+        aria-haspopup="dialog"
+        aria-invalid={false}
+        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 pl-3 text-left font-normal text-muted-foreground"
+        data-state="closed"
+        id=":r3:-form-item"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Pick a date
+        </span>
+        <svg
+          className="lucide lucide-calendar ml-auto h-4 w-4 opacity-50"
+          fill="none"
+          height={24}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div
-            className=" css-1jqq78o-placeholder"
-            id="react-select-3-placeholder"
-          >
-            Select a distributor
-          </div>
-          <div
-            className=" css-qbdosj-Input"
-            data-value=""
-          >
-            <input
-              aria-activedescendant=""
-              aria-autocomplete="list"
-              aria-describedby="react-select-3-placeholder"
-              aria-expanded={false}
-              aria-haspopup={true}
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              className=""
-              disabled={false}
-              id="distributorOptions"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              role="combobox"
-              spellCheck="false"
-              style={
-                {
-                  "background": 0,
-                  "border": 0,
-                  "color": "inherit",
-                  "font": "inherit",
-                  "gridArea": "1 / 2",
-                  "label": "input",
-                  "margin": 0,
-                  "minWidth": "2px",
-                  "opacity": 1,
-                  "outline": 0,
-                  "padding": 0,
-                  "width": "100%",
-                }
-              }
-              tabIndex={0}
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          className=" css-1hb7zxy-IndicatorsContainer"
-        >
-          <span
-            className=" css-1u9des2-indicatorSeparator"
+          <path
+            d="M8 2v4"
           />
-          <div
-            aria-hidden="true"
-            className=" css-1xc3v61-indicatorContainer"
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="css-tj5bde-Svg"
-              focusable="false"
-              height={20}
-              viewBox="0 0 20 20"
-              width={20}
-            >
-              <path
-                d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
+          <path
+            d="M16 2v4"
+          />
+          <rect
+            height="18"
+            rx="2"
+            width="18"
+            x="3"
+            y="4"
+          />
+          <path
+            d="M3 10h18"
+          />
+        </svg>
+      </button>
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r3:-form-item-description"
+      >
+        This is the date the product was purchased.
+      </p>
+    </div>
+    <div
+      className="space-y-2"
+    >
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r5:-form-item"
+        onMouseDown={[Function]}
+      >
+        Initial Quantity
+      </label>
       <input
-        name="distributor"
-        type="hidden"
+        aria-describedby=":r5:-form-item-description"
+        aria-invalid={false}
+        aria-label="initialQuantity"
+        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id=":r5:-form-item"
+        name="initialQuantity"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="number"
         value=""
       />
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r5:-form-item-description"
+      >
+        This is the initial quantity of the product from when the item was purchased.
+      </p>
     </div>
-  </div>
-  <div
-    className="form-group"
-  >
-    <label
-      className="block text-gray-700 font-medium mb-2"
-      htmlFor="price"
+    <div
+      className="space-y-2"
     >
-      Price
-    </label>
-    <input
-      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-      id="price"
-      name="price"
-      onBlur={[Function]}
-      onChange={[Function]}
-      step="0.01"
-      type="number"
-    />
-  </div>
-  <div
-    className="form-group"
-  >
-    <label
-      className="block text-gray-700 font-medium mb-2"
-      htmlFor="purchaseDate"
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r6:-form-item"
+        onMouseDown={[Function]}
+      >
+        Current Quantity
+      </label>
+      <input
+        aria-describedby=":r6:-form-item-description"
+        aria-invalid={false}
+        aria-label="currentQuantity"
+        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id=":r6:-form-item"
+        name="currentQuantity"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r6:-form-item-description"
+      >
+        This is current quantity of the product on hand.
+      </p>
+    </div>
+    <button
+      className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+      type="submit"
     >
-      Purchase Date
-    </label>
-    <input
-      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-      id="purchaseDate"
-      name="purchaseDate"
-      onBlur={[Function]}
-      onChange={[Function]}
-      type="date"
-    />
-  </div>
-  <div
-    className="form-group"
-  >
-    <label
-      className="block text-gray-700 font-medium mb-2"
-      htmlFor="initialQuantity"
-    >
-      Initial Quantity
-    </label>
-    <input
-      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-      id="initialQuantity"
-      name="initialQuantity"
-      onBlur={[Function]}
-      onChange={[Function]}
-      step="1"
-      type="number"
-    />
-  </div>
-  <div
-    className="form-group"
-  >
-    <label
-      className="block text-gray-700 font-medium mb-2"
-      htmlFor="currentQuantity"
-    >
-      Current Quantity
-    </label>
-    <input
-      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-      id="currentQuantity"
-      name="currentQuantity"
-      onBlur={[Function]}
-      onChange={[Function]}
-      step="1"
-      type="number"
-    />
-  </div>
-  <button
-    className="w-full py-2 px-4 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none"
-    type="submit"
-  >
-    Add Item
-  </button>
-</form>
+      Add Item
+    </button>
+  </form>
+</div>
 `;

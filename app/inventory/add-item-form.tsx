@@ -20,7 +20,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { toast } from "@/components/ui/use-toast";
 
 import {
     Form,
@@ -106,7 +105,20 @@ export default function AddItemForm({
                 });
             });
         } else {
-            form.reset();
+            form.reset({
+                product: {
+                    value: "",
+                    label: "",
+                },
+                distributor: {
+                    value: "",
+                    label: "",
+                },
+                price: 0,
+                purchaseDate: "",
+                initialQuantity: 0,
+                currentQuantity: 0,
+            });
         }
     };
 

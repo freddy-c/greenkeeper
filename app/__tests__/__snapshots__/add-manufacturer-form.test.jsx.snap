@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddManufacturerForm renders correctly 1`] = `
+<div
+  className="space-y-6 max-w-lg mx-auto"
+>
+  <form
+    className="space-y-8"
+    onSubmit={[Function]}
+  >
+    <div
+      className="space-y-2"
+    >
+      <label
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        htmlFor=":r0:-form-item"
+        onMouseDown={[Function]}
+      >
+        Name
+      </label>
+      <input
+        aria-describedby=":r0:-form-item-description"
+        aria-invalid={false}
+        aria-label="name"
+        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        id=":r0:-form-item"
+        name="name"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder=""
+      />
+      <p
+        className="text-sm text-muted-foreground"
+        id=":r0:-form-item-description"
+      >
+        This is the name of the manufacturer.
+      </p>
+    </div>
+    <button
+      className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+      type="submit"
+    >
+      Add Manufacturer
+    </button>
+  </form>
+</div>
+`;

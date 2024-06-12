@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import renderer from "react-test-renderer";
-import AddForm from "../add-form";
+import AddManufacturerForm from "../manufacturer/add-manufacturer-form";
 import { prismaMock } from "../singleton";
 
 jest.mock("next/cache", () => ({
@@ -9,21 +9,21 @@ jest.mock("next/cache", () => ({
     revalidatePath: jest.fn(() => null),
 }));
 
-describe("AddForm", () => {
+describe("AddManufacturerForm", () => {
     test("renders correctly", () => {
-        const tree = renderer.create(<AddForm />).toJSON();
+        const tree = renderer.create(<AddManufacturerForm />).toJSON();
         expect(tree).toMatchSnapshot();
     });
 
     test("shows error message when name is empty", async () => {
-        render(<AddForm />);
+        render(<AddManufacturerForm />);
         fireEvent.click(
             screen.getByRole("button", { name: /add manufacturer/i })
         );
 
         await waitFor(() => {
             expect(
-                screen.getByText(/string must contain at least 1 character/i)
+                screen.getByText(/Required/i)
             ).toBeInTheDocument();
         });
     });
@@ -35,7 +35,7 @@ describe("AddForm", () => {
         prismaMock.manufacturer.findMany.mockResolvedValue([]); // Mock no existing manufacturer
         prismaMock.manufacturer.create.mockResolvedValue(mockData); // Mock successful creation
 
-        render(<AddForm />);
+        render(<AddManufacturerForm />);
         const nameInput = screen.getByLabelText(/name/i);
         fireEvent.change(nameInput, { target: { value: "Test Manufacturer" } });
         fireEvent.click(
@@ -57,7 +57,7 @@ describe("AddForm", () => {
         prismaMock.manufacturer.findMany.mockResolvedValue([]);
         prismaMock.manufacturer.create.mockResolvedValue(mockData); // Mock successful creation
 
-        render(<AddForm />);
+        render(<AddManufacturerForm />);
         const nameInput = screen.getByLabelText(/name/i);
         fireEvent.change(nameInput, { target: { value: "Test Manufacturer" } });
         fireEvent.click(
@@ -73,7 +73,7 @@ describe("AddForm", () => {
         const mockData = { id: "1", name: "Test Manufacturer" };
         prismaMock.manufacturer.findMany.mockResolvedValue([mockData]);
 
-        render(<AddForm />);
+        render(<AddManufacturerForm />);
         const nameInput = screen.getByLabelText(/name/i);
         fireEvent.change(nameInput, { target: { value: "Test Manufacturer" } });
         fireEvent.click(

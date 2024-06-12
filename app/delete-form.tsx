@@ -3,6 +3,8 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { deleteManufacturer } from "./actions";
 
+import { Button } from "@/components/ui/button";
+
 const initialState = {
     message: "",
 };
@@ -11,13 +13,11 @@ function DeleteButton() {
     const { pending } = useFormStatus();
 
     return (
-        <button
-            type="submit"
-            aria-disabled={pending}
-            className="border hover:cursor-pointer"
-        >
-            Delete
-        </button>
+        <div>
+            <Button variant="destructive" type="submit" aria-disabled={pending}>
+                Delete
+            </Button>
+        </div>
     );
 }
 
