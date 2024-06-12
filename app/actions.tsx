@@ -4,7 +4,11 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "./client";
 import { Item, Manufacturer } from "@prisma/client";
-import { AddManufacturerSchema, AddItemSchema } from "./schemas";
+import {
+    AddManufacturerSchema,
+    AddItemSchema,
+    AddProductSchema,
+} from "./schemas";
 
 const db = prisma;
 
@@ -143,5 +147,48 @@ export async function createItem(data: z.infer<typeof AddItemSchema>): Promise<{
         };
     } catch (e) {
         return { success: false };
+    }
+}
+
+export async function createProduct(
+    data: z.infer<typeof AddProductSchema>
+): Promise<{
+    success: boolean;
+    message?: string;
+    product?: any;
+    issues?: {
+        path: any;
+        message: string;
+    }[];
+}> {
+    const parsed = AddProductSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            issues: parsed.error.issues.map((issue) => {
+                return { path: issue.path, message: issue.message };
+            }),
+        };
+    }
+
+    try {
+        const newProduct = await prisma.product.create({
+            data: {
+                name: parsed.data.name,
+                manufacturer: {
+                    connect: {
+                        id: parsed.data.manufacturer.value,
+                    },
+                },
+            },
+        });
+
+        return {
+            success: true,
+            product: newProduct,
+        };
+    } catch (e) {
+        return { success: false, message: "Failed to create product" };
     }
 }
