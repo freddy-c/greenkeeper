@@ -60,7 +60,10 @@ export default function AddItemForm({
             className="space-y-6 max-w-lg mx-auto"
         >
             <div className="form-group">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label
+                    htmlFor="productOptions"
+                    className="block text-gray-700 font-medium mb-2"
+                >
                     Product
                 </label>
                 <Controller
@@ -72,6 +75,7 @@ export default function AddItemForm({
                             options={productOptions}
                             placeholder="Select a product"
                             className="w-full"
+                            inputId="productOptions"
                         />
                     )}
                 />
@@ -83,7 +87,10 @@ export default function AddItemForm({
             </div>
 
             <div className="form-group">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label
+                    htmlFor="distributorOptions"
+                    className="block text-gray-700 font-medium mb-2"
+                >
                     Distributor
                 </label>
                 <Controller
@@ -95,6 +102,7 @@ export default function AddItemForm({
                             options={distributorOptions}
                             placeholder="Select a distributor"
                             className="w-full"
+                            inputId="distributorOptions"
                         />
                     )}
                 />
@@ -106,10 +114,14 @@ export default function AddItemForm({
             </div>
 
             <div className="form-group">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label
+                    htmlFor="price"
+                    className="block text-gray-700 font-medium mb-2"
+                >
                     Price
                 </label>
                 <input
+                    id="price"
                     type="number"
                     step="0.01"
                     {...register("price", { valueAsNumber: true })}
@@ -123,10 +135,14 @@ export default function AddItemForm({
             </div>
 
             <div className="form-group">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label
+                    htmlFor="purchaseDate"
+                    className="block text-gray-700 font-medium mb-2"
+                >
                     Purchase Date
                 </label>
                 <input
+                    id="purchaseDate"
                     type="date"
                     {...register("purchaseDate")}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
@@ -139,10 +155,14 @@ export default function AddItemForm({
             </div>
 
             <div className="form-group">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label
+                    htmlFor="initialQuantity"
+                    className="block text-gray-700 font-medium mb-2"
+                >
                     Initial Quantity
                 </label>
                 <input
+                    id="initialQuantity"
                     type="number"
                     step="1"
                     {...register("initialQuantity", { valueAsNumber: true })}
@@ -156,10 +176,14 @@ export default function AddItemForm({
             </div>
 
             <div className="form-group">
-                <label className="block text-gray-700 font-medium mb-2">
+                <label
+                    htmlFor="currentQuantity"
+                    className="block text-gray-700 font-medium mb-2"
+                >
                     Current Quantity
                 </label>
                 <input
+                    id="currentQuantity"
                     type="number"
                     step="1"
                     {...register("currentQuantity", { valueAsNumber: true })}
