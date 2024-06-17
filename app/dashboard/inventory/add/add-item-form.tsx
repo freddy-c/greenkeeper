@@ -1,12 +1,13 @@
 "use client";
 
-import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import Select from "react-select";
 import { Product, Distributor } from "@prisma/client";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddItemSchema } from "../schemas";
-import { createItem } from "../actions";
+import { AddItemSchema } from "../../../schemas";
+import { createItem } from "../../../actions";
 
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -35,7 +36,7 @@ import { Input } from "@/components/ui/input";
 type AddItemFormValues = z.infer<typeof AddItemSchema>;
 
 const selectStyles = {
-    control: (base, state) => ({
+    control: (base: any, state: { isFocused: any }) => ({
         ...base,
         borderColor: state.isFocused
             ? "hsl(var(--input))"
@@ -49,14 +50,14 @@ const selectStyles = {
         color: "hsl(var(--foreground))",
         fontSize: 14,
     }),
-    menu: (base) => ({
+    menu: (base: any) => ({
         ...base,
         borderRadius: "var(--radius)",
         backgroundColor: "hsl(var(--popover))",
         color: "hsl(var(--popover-foreground))",
         fontSize: 14,
     }),
-    option: (base, state) => ({
+    option: (base: any, state: { isSelected: any; isFocused: any }) => ({
         ...base,
         backgroundColor: state.isSelected
             ? "hsl(var(--primary))"
@@ -71,11 +72,11 @@ const selectStyles = {
             color: "hsl(var(--accent-foreground))",
         },
     }),
-    placeholder: (base) => ({
+    placeholder: (base: any) => ({
         ...base,
         color: "hsl(var(--muted-foreground))",
     }),
-    singleValue: (base) => ({
+    singleValue: (base: any) => ({
         ...base,
         color: "hsl(var(--foreground))",
     }),
@@ -88,6 +89,8 @@ export default function AddItemForm({
     products: Product[];
     distributors: Distributor[];
 }) {
+    const router = useRouter();
+
     const form = useForm<AddItemFormValues>({
         resolver: zodResolver(AddItemSchema),
     });
@@ -105,20 +108,22 @@ export default function AddItemForm({
                 });
             });
         } else {
-            form.reset({
-                product: {
-                    value: "",
-                    label: "",
-                },
-                distributor: {
-                    value: "",
-                    label: "",
-                },
-                price: 0,
-                purchaseDate: "",
-                initialQuantity: 0,
-                currentQuantity: 0,
-            });
+            // form.reset({
+            //     product: {
+            //         value: "",
+            //         label: "",
+            //     },
+            //     distributor: {
+            //         value: "",
+            //         label: "",
+            //     },
+            //     price: 0,
+            //     purchaseDate: "",
+            //     initialQuantity: 0,
+            //     currentQuantity: 0,
+            // });
+
+            router.push("/dashboard/inventory");
         }
     };
 
@@ -132,7 +137,7 @@ export default function AddItemForm({
     }));
 
     return (
-        <div className="space-y-6 max-w-lg mx-auto">
+        <div>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
