@@ -37,6 +37,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Breadcrumbs from "./breadcrumbs";
+import NavLinks from "./nav-links";
 
 export default function DashboardLayout({
     children,
@@ -54,7 +55,7 @@ export default function DashboardLayout({
                         <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
                         <span className="sr-only">Greenkeeper</span>
                     </Link>
-                    <TooltipProvider>
+                    {/* <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Link
@@ -98,7 +99,8 @@ export default function DashboardLayout({
                                 Performance
                             </TooltipContent>
                         </Tooltip>
-                    </TooltipProvider>
+                    </TooltipProvider> */}
+                    <NavLinks />
                 </nav>
                 <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
                     <TooltipProvider>
@@ -195,13 +197,13 @@ export default function DashboardLayout({
                                 size="icon"
                                 className="overflow-hidden rounded-full"
                             >
-                                <Image
+                                {/* <Image
                                     src="/placeholder-user.jpg"
                                     width={36}
                                     height={36}
                                     alt="Avatar"
                                     className="overflow-hidden rounded-full"
-                                />
+                                /> */}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
