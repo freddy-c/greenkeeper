@@ -64,7 +64,10 @@ export const SprayCalculatorSchema = z.object({
     items: z
         .array(
             z.object({
-                itemId: z.string().uuid(),
+                itemId: z.object({
+                    value: z.string().uuid(),
+                    label: z.string(),
+                }),
                 applicationRate: z
                     .number()
                     .min(0, "Application rate must be non-negative"),
