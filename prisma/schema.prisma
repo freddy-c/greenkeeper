@@ -70,3 +70,10 @@ model ApplicationItems {
 
   @@id([applicationId, itemId])
 }
+
+model Sprayer {
+  id            String @id @default(uuid())
+  name          String
+  tankCapacity  Float
+  nozzleSpacing Float
+}
