@@ -71,9 +71,21 @@ model ApplicationItems {
   @@id([applicationId, itemId])
 }
 
+model Equipment {
+  id      String        @id @default(uuid())
+  name    String
+  type    EquipmentType
+  Sprayer Sprayer?
+}
+
 model Sprayer {
-  id            String @id @default(uuid())
-  name          String
+  id            String    @id @default(uuid())
   tankCapacity  Float
   nozzleSpacing Float
+  equipmentId   String    @unique
+  equipment     Equipment @relation(fields: [equipmentId], references: [id])
+}
+
+enum EquipmentType {
+  Sprayer
 }
