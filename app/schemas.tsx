@@ -59,6 +59,19 @@ export const SprayCalculatorSchema = z.object({
         .min(0, "Nozzle capacity must be non-negative"),
     forwardSpeed: z.number().min(0, "Forward speed must be non-negative"),
     waterVolume: z.number().min(0, "Water volume must be non-negative"),
-    applicationRate: z.number().min(0, "Application rate must be non-negative"),
     nozzleSpacing: z.number().min(0, "Nozzle spacing must be non-negative"),
+    area: z.number().min(0, "Area must be non-negative"),
+    items: z
+        .array(
+            z.object({
+                itemId: z.object({
+                    value: z.string().uuid(),
+                    label: z.string(),
+                }),
+                applicationRate: z
+                    .number()
+                    .min(0, "Application rate must be non-negative"),
+            })
+        )
+        .min(1, "At least one item is required"),
 });
