@@ -21,19 +21,16 @@ import React from "react";
 import AddItemInput from "./add-item-input";
 import { Prisma } from "@prisma/client";
 import Calculations from "./calculations";
+import { Sprayer, ItemsWithProduct } from "@/app/types";
 
 type SprayCalculatorForm = z.infer<typeof SprayCalculatorSchema>;
 
-type ItemsWithProduct = Prisma.ItemGetPayload<{
-    include: {
-        product: true;
-    };
-}>;
-
 export default function ApplicationCalculator({
     items,
+    sprayers,
 }: {
     items: ItemsWithProduct[];
+    sprayers: Sprayer[];
 }) {
     const form = useForm<SprayCalculatorForm>({
         resolver: zodResolver(SprayCalculatorSchema),
