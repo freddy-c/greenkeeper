@@ -75,7 +75,7 @@ model Equipment {
   id      String        @id @default(uuid())
   name    String
   type    EquipmentType
-  Sprayer Sprayer?
+  sprayer Sprayer?
 }
 
 model Sprayer {

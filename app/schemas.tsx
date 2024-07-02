@@ -75,3 +75,9 @@ export const SprayCalculatorSchema = z.object({
         )
         .min(1, "At least one item is required"),
 });
+
+export const AddSprayerSchema = z.object({
+    name: z.string().min(1, "Sprayer name is required"),
+    tankCapacity: z.number().positive(),
+    nozzleSpacing: z.number().positive(),
+});
