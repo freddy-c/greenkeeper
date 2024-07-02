@@ -8,6 +8,7 @@ import {
     AddManufacturerSchema,
     AddItemSchema,
     AddProductSchema,
+    AddSprayerSchema,
 } from "./schemas";
 
 const db = prisma;
@@ -190,5 +191,52 @@ export async function createProduct(
         };
     } catch (e) {
         return { success: false, message: "Failed to create product" };
+    }
+}
+
+export async function createSprayer(
+    data: z.infer<typeof AddSprayerSchema>
+): Promise<{
+    success: boolean;
+    message?: string;
+    sprayer?: any;
+    issues?: {
+        path: any;
+        message: string;
+    }[];
+}> {
+    const parsed = AddSprayerSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            issues: parsed.error.issues.map((issue) => {
+                return { path: issue.path, message: issue.message };
+            }),
+        };
+    }
+
+    try {
+        const newSprayer = await db.equipment.create({
+            data: {
+                name: parsed.data.name,
+                type: "Sprayer",
+                Sprayer: {
+                    create: {
+                        tankCapacity: parsed.data.tankCapacity,
+                        nozzleSpacing: parsed.data.nozzleSpacing,
+                    },
+                },
+            },
+        });
+
+        return {
+            success: true,
+            sprayer: newSprayer,
+        };
+    } catch (e) {
+        console.log(e);
+        // return { success: false, message: "Failed to create sprayer" };
+        return { success: false, message: "Failed to create sprayer" };
     }
 }
