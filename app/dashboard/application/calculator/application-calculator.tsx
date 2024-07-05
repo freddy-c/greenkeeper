@@ -15,11 +15,12 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 
+import Select from "react-select";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import AddItemInput from "./add-item-input";
-import { Prisma } from "@prisma/client";
 import Calculations from "./calculations";
 import { Sprayer, ItemsWithProduct } from "@/app/types";
 
@@ -42,6 +43,11 @@ export default function ApplicationCalculator({
     });
 
     const onSubmit = (data: SprayCalculatorForm) => console.log("data", data);
+
+    const sprayerOptions = sprayers.map((sprayer) => ({
+        value: sprayer.id,
+        label: sprayer.name,
+    }));
 
     return (
         <div>
@@ -215,6 +221,84 @@ export default function ApplicationCalculator({
                                 </FormControl>
                                 <FormDescription>
                                     This is the area in hectares being sprayed.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="sprayer"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Sprayer</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        {...field}
+                                        aria-label="sprayer"
+                                        options={sprayerOptions}
+                                        placeholder="Select a sprayer"
+                                        className="w-full"
+                                        inputId="sprayer"
+                                        styles={{
+                                            control: (base, state) => ({
+                                                ...base,
+                                                borderColor: state.isFocused
+                                                    ? "hsl(var(--input))"
+                                                    : "hsl(var(--input))",
+                                                boxShadow: state.isFocused
+                                                    ? "0 0 0 1px hsl(var(--ring))"
+                                                    : "none",
+                                                "&:hover": {
+                                                    borderColor:
+                                                        "hsl(var(--input))",
+                                                },
+                                                borderRadius: "var(--radius)",
+                                                backgroundColor:
+                                                    "hsl(var(--background))",
+                                                color: "hsl(var(--foreground))",
+                                                fontSize: 14,
+                                            }),
+                                            menu: (base) => ({
+                                                ...base,
+                                                borderRadius: "var(--radius)",
+                                                backgroundColor:
+                                                    "hsl(var(--popover))",
+                                                color: "hsl(var(--popover-foreground))",
+                                                fontSize: 14,
+                                            }),
+                                            option: (base, state) => ({
+                                                ...base,
+                                                backgroundColor:
+                                                    state.isSelected
+                                                        ? "hsl(var(--primary))"
+                                                        : state.isFocused
+                                                        ? "hsl(var(--accent))"
+                                                        : "hsl(var(--background))",
+                                                color: state.isSelected
+                                                    ? "hsl(var(--primary-foreground))"
+                                                    : "hsl(var(--foreground))",
+                                                "&:hover": {
+                                                    backgroundColor:
+                                                        "hsl(var(--accent))",
+                                                    color: "hsl(var(--accent-foreground))",
+                                                },
+                                            }),
+                                            placeholder: (base) => ({
+                                                ...base,
+                                                color: "hsl(var(--muted-foreground))",
+                                            }),
+                                            singleValue: (base) => ({
+                                                ...base,
+                                                color: "hsl(var(--foreground))",
+                                            }),
+                                        }}
+                                    />
+                                </FormControl>
+                                <FormDescription>
+                                    This is the sprayer used for the
+                                    application.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>

@@ -54,11 +54,13 @@ model Application {
   id               String             @id @default(uuid())
   date             DateTime
   operator         String
+  sprayer          Sprayer            @relation(fields: [sprayerId], references: [id])
   ApplicationItems ApplicationItems[]
   waterVolume      Float
   temperature      Float
   windSpeed        Float
   observations     String
+  sprayerId        String
 }
 
 model ApplicationItems {
@@ -79,11 +81,12 @@ model Equipment {
 }
 
 model Sprayer {
-  id            String    @id @default(uuid())
+  id            String        @id @default(uuid())
   tankCapacity  Float
   nozzleSpacing Float
-  equipmentId   String    @unique
-  equipment     Equipment @relation(fields: [equipmentId], references: [id])
+  equipmentId   String        @unique
+  equipment     Equipment     @relation(fields: [equipmentId], references: [id])
+  Application   Application[]
 }
 
 enum EquipmentType {
