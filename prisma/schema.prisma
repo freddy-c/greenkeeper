@@ -14,12 +14,134 @@ datasource db {
 }
 
 model Product {
-  id             String        @id @default(uuid())
-  name           String
-  manufacturer   Manufacturer  @relation(fields: [manufacturerId], references: [id])
-  manufacturerId String
-  distributors   Distributor[]
-  Item           Item[]
+  id              String           @id @default(uuid())
+  name            String
+  manufacturer    Manufacturer     @relation(fields: [manufacturerId], references: [id])
+  manufacturerId  String
+  distributors    Distributor[]
+  Item            Item[]
+  type            ProductType
+  form            FormType
+  Fertilizer      Fertilizer?
+  WettingAgent    WettingAgent?
+  Herbicide       Herbicide?
+  Fungicide       Fungicide?
+  GrowthRegulator GrowthRegulator?
+  Granular        Granular?
+  Liquid          Liquid?
+  Soluble         Soluble?
+}
+
+model Fertilizer {
+  id           String  @id @default(uuid())
+  productId    String  @unique
+  product      Product @relation(fields: [productId], references: [id])
+  nitrogen     Float
+  potassium    Float
+  phosphorus   Float
+  calcium      Float
+  magnesium    Float
+  sulfur       Float
+  iron         Float
+  manganese    Float
+  longevity    Int
+  turfResponse Int
+}
+
+model WettingAgent {
+  id        String  @id @default(uuid())
+  productId String  @unique
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Weed {
+  id         String      @id @default(uuid())
+  name       String
+  herbicides Herbicide[]
+}
+
+model Herbicide {
+  id                  String                     @id @default(uuid())
+  productId           String                     @unique
+  product             Product                    @relation(fields: [productId], references: [id])
+  maxIndividualRate   Float
+  maxNoOfApplications Int
+  weedsControlled     Weed[]
+  activeSubstances    HerbicideActiveSubstance[]
+}
+
+model Disease {
+  id         String      @id @default(uuid())
+  name       String
+  fungicides Fungicide[]
+}
+
+model Fungicide {
+  id                 String                     @id @default(uuid())
+  productId          String                     @unique
+  product            Product                    @relation(fields: [productId], references: [id])
+  diseasesControlled Disease[]
+  activeSubstances   FungicideActiveSubstance[]
+}
+
+model GrowthRegulator {
+  id        String  @id @default(uuid())
+  productId String  @unique
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model HerbicideActiveSubstance {
+  activeSubstance   ActiveSubstance @relation(fields: [activeSubstanceId], references: [id])
+  activeSubstanceId String
+  herbicide         Herbicide       @relation(fields: [herbicideId], references: [id])
+  herbicideId       String
+  quantity          Float
+
+  @@id([activeSubstanceId, herbicideId])
+}
+
+model FungicideActiveSubstance {
+  activeSubstance   ActiveSubstance @relation(fields: [activeSubstanceId], references: [id])
+  activeSubstanceId String
+  fungicide         Fungicide       @relation(fields: [fungicideId], references: [id])
+  fungicideId       String
+  quantity          Float
+
+  @@id([activeSubstanceId, fungicideId])
+}
+
+model ActiveSubstance {
+  id         String                     @id @default(uuid())
+  name       String
+  herbicides HerbicideActiveSubstance[]
+  fungicides FungicideActiveSubstance[]
+}
+
+model Granular {
+  id               String  @id @default(uuid())
+  productId        String  @unique
+  product          Product @relation(fields: [productId], references: [id])
+  granuleSizeMin   Float
+  granuleSizeMax   Float
+  sgn              Float
+  minCuttingHeight Float
+}
+
+model Liquid {
+  id              String  @id @default(uuid())
+  productId       String  @unique
+  product         Product @relation(fields: [productId], references: [id])
+  specificGravity Float
+  waterRateMin    Float
+  waterRateMax    Float
+}
+
+model Soluble {
+  id           String  @id @default(uuid())
+  productId    String  @unique
+  product      Product @relation(fields: [productId], references: [id])
+  waterRateMin Float
+  waterRateMax Float
 }
 
 model Manufacturer {
@@ -91,4 +213,18 @@ model Sprayer {
 
 enum EquipmentType {
   Sprayer
+}
+
+enum ProductType {
+  Fertilizer
+  WettingAgent
+  Herbicide
+  Fungicide
+  GrowthRegulator
+}
+
+enum FormType {
+  Granular
+  Liquid
+  Soluble
 }
