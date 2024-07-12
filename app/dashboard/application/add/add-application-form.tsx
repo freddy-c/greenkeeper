@@ -18,6 +18,8 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+import { PlusCircle } from "lucide-react";
+
 import {
     Form,
     FormControl,
@@ -32,9 +34,19 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { Input } from "@/components/ui/input";
 
+import Select from "react-select";
+import { ItemsWithProduct, Sprayer } from "@/app/types";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+
 type AddApplicationFormValues = z.infer<typeof AddApplicationSchema>;
 
-export default function AddApplicationForm() {
+export default function AddApplicationForm({
+    sprayers,
+    items,
+}: {
+    sprayers: Sprayer[];
+    items: ItemsWithProduct[];
+}) {
     const form = useForm<AddApplicationFormValues>({
         resolver: zodResolver(AddApplicationSchema),
     });
@@ -47,6 +59,16 @@ export default function AddApplicationForm() {
     const onSubmit = (data: AddApplicationFormValues) => {
         console.log(data);
     };
+
+    const sprayerOptions = sprayers.map((sprayer) => ({
+        value: sprayer.id,
+        label: sprayer.name,
+    }));
+
+    const itemOptions = items?.map((item) => ({
+        value: item.id,
+        label: item.product.name,
+    }));
 
     return (
         <div>
@@ -115,6 +137,83 @@ export default function AddApplicationForm() {
                                 </Popover>
                                 <FormDescription>
                                     This is the date the application was made.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="sprayer"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Sprayer</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        {...field}
+                                        aria-label="sprayer"
+                                        options={sprayerOptions}
+                                        placeholder="Select a sprayer"
+                                        className="w-full"
+                                        inputId="sprayer"
+                                        styles={{
+                                            control: (base, state) => ({
+                                                ...base,
+                                                borderColor: state.isFocused
+                                                    ? "hsl(var(--input))"
+                                                    : "hsl(var(--input))",
+                                                boxShadow: state.isFocused
+                                                    ? "0 0 0 1px hsl(var(--ring))"
+                                                    : "none",
+                                                "&:hover": {
+                                                    borderColor:
+                                                        "hsl(var(--input))",
+                                                },
+                                                borderRadius: "var(--radius)",
+                                                backgroundColor:
+                                                    "hsl(var(--background))",
+                                                color: "hsl(var(--foreground))",
+                                                fontSize: 14,
+                                            }),
+                                            menu: (base) => ({
+                                                ...base,
+                                                borderRadius: "var(--radius)",
+                                                backgroundColor:
+                                                    "hsl(var(--popover))",
+                                                color: "hsl(var(--popover-foreground))",
+                                                fontSize: 14,
+                                            }),
+                                            option: (base, state) => ({
+                                                ...base,
+                                                backgroundColor:
+                                                    state.isSelected
+                                                        ? "hsl(var(--primary))"
+                                                        : state.isFocused
+                                                        ? "hsl(var(--accent))"
+                                                        : "hsl(var(--background))",
+                                                color: state.isSelected
+                                                    ? "hsl(var(--primary-foreground))"
+                                                    : "hsl(var(--foreground))",
+                                                "&:hover": {
+                                                    backgroundColor:
+                                                        "hsl(var(--accent))",
+                                                    color: "hsl(var(--accent-foreground))",
+                                                },
+                                            }),
+                                            placeholder: (base) => ({
+                                                ...base,
+                                                color: "hsl(var(--muted-foreground))",
+                                            }),
+                                            singleValue: (base) => ({
+                                                ...base,
+                                                color: "hsl(var(--foreground))",
+                                            }),
+                                        }}
+                                    />
+                                </FormControl>
+                                <FormDescription>
+                                    This is the sprayer used for the
+                                    application.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
@@ -244,82 +343,167 @@ export default function AddApplicationForm() {
                         )}
                     />
                     <div className="space-y-8">
-                        <ul>
-                            {fields.map((item, index) => (
-                                <div key={item.id} className="space-y-8">
-                                    <FormField
-                                        control={form.control}
-                                        name={`items.${index}.itemId`}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Item ID</FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder=""
-                                                        {...field}
-                                                        aria-label={`items.${index}.itemId`}
-                                                    />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    This is the id of the item.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name={`items.${index}.quantity`}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>
-                                                    Item Quantity
-                                                </FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        type="number"
-                                                        {...field}
-                                                        onChange={(event) => {
-                                                            if (
-                                                                !Number.isNaN(
-                                                                    event.target
-                                                                        .value
-                                                                )
-                                                            )
+                        {fields.map((item: any, index: any) => {
+                            return (
+                                <Card key={item.id}>
+                                    <CardHeader>{index + 1}</CardHeader>
+                                    <CardContent className="space-y-8">
+                                        <FormField
+                                            control={form.control}
+                                            name={`items.${index}.itemId`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Item</FormLabel>
+                                                    <FormControl>
+                                                        <Select
+                                                            {...field}
+                                                            aria-label="product"
+                                                            options={
+                                                                itemOptions
+                                                            }
+                                                            placeholder="Select a product"
+                                                            className="w-full"
+                                                            inputId="productOptions"
+                                                            styles={{
+                                                                control: (
+                                                                    base,
+                                                                    state
+                                                                ) => ({
+                                                                    ...base,
+                                                                    borderColor:
+                                                                        state.isFocused
+                                                                            ? "hsl(var(--input))"
+                                                                            : "hsl(var(--input))",
+                                                                    boxShadow:
+                                                                        state.isFocused
+                                                                            ? "0 0 0 1px hsl(var(--ring))"
+                                                                            : "none",
+                                                                    "&:hover": {
+                                                                        borderColor:
+                                                                            "hsl(var(--input))",
+                                                                    },
+                                                                    borderRadius:
+                                                                        "var(--radius)",
+                                                                    backgroundColor:
+                                                                        "hsl(var(--background))",
+                                                                    color: "hsl(var(--foreground))",
+                                                                    fontSize: 14,
+                                                                }),
+                                                                menu: (
+                                                                    base
+                                                                ) => ({
+                                                                    ...base,
+                                                                    borderRadius:
+                                                                        "var(--radius)",
+                                                                    backgroundColor:
+                                                                        "hsl(var(--popover))",
+                                                                    color: "hsl(var(--popover-foreground))",
+                                                                    fontSize: 14,
+                                                                }),
+                                                                option: (
+                                                                    base,
+                                                                    state
+                                                                ) => ({
+                                                                    ...base,
+                                                                    backgroundColor:
+                                                                        state.isSelected
+                                                                            ? "hsl(var(--primary))"
+                                                                            : state.isFocused
+                                                                            ? "hsl(var(--accent))"
+                                                                            : "hsl(var(--background))",
+                                                                    color: state.isSelected
+                                                                        ? "hsl(var(--primary-foreground))"
+                                                                        : "hsl(var(--foreground))",
+                                                                    "&:hover": {
+                                                                        backgroundColor:
+                                                                            "hsl(var(--accent))",
+                                                                        color: "hsl(var(--accent-foreground))",
+                                                                    },
+                                                                }),
+                                                                placeholder: (
+                                                                    base
+                                                                ) => ({
+                                                                    ...base,
+                                                                    color: "hsl(var(--muted-foreground))",
+                                                                }),
+                                                                singleValue: (
+                                                                    base
+                                                                ) => ({
+                                                                    ...base,
+                                                                    color: "hsl(var(--foreground))",
+                                                                }),
+                                                            }}
+                                                        />
+                                                    </FormControl>
+                                                    <FormDescription>
+                                                        This is the item used in
+                                                        the application.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name={`items.${index}.applicationRate`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Application Rate
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="number"
+                                                            {...field}
+                                                            onChange={(e) =>
                                                                 field.onChange(
                                                                     parseFloat(
-                                                                        event
-                                                                            .target
+                                                                        e.target
                                                                             .value
-                                                                    )
-                                                                );
-                                                        }}
-                                                        aria-label={`items.${index}.quantity`}
-                                                    />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    This is the quantity of the
-                                                    item used in the
-                                                    application.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <Button
-                                        type="button"
-                                        variant="destructive"
-                                        onClick={() => remove(index)}
-                                    >
-                                        Delete
-                                    </Button>
-                                </div>
-                            ))}
-                        </ul>
+                                                                    ) || ""
+                                                                )
+                                                            }
+                                                            aria-label={`items.${index}.applicationRate`}
+                                                        />
+                                                    </FormControl>
+
+                                                    <FormDescription>
+                                                        This is the application
+                                                        rate of this particular
+                                                        item in l/ha.
+                                                    </FormDescription>
+
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <Button
+                                            type="button"
+                                            variant="destructive"
+                                            onClick={() => remove(index)}
+                                        >
+                                            Remove
+                                        </Button>
+                                    </CardContent>
+                                </Card>
+                            );
+                        })}
+
                         <Button
                             type="button"
-                            onClick={() => append({ itemId: "", quantity: 0 })}
+                            onClick={() =>
+                                append({
+                                    itemId: { value: "", label: "" },
+                                    applicationRate: 0,
+                                })
+                            }
+                            size="sm"
+                            variant="ghost"
+                            className="gap-1"
                         >
+                            <PlusCircle className="h-3.5 w-3.5" />
                             Add Item
                         </Button>
                     </div>

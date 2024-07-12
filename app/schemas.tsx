@@ -34,6 +34,10 @@ const ApplicationItemSchema = z.object({
 
 export const AddApplicationSchema = z.object({
     date: z.string().date(),
+    sprayer: z.object({
+        value: z.string().uuid(),
+        label: z.string(),
+    }),
     operator: z.string().min(1, "Operator name is required"),
     waterVolume: z.number().min(0, "Water volume must be non-negative"),
     temperature: z
@@ -48,7 +52,17 @@ export const AddApplicationSchema = z.object({
         })
         .optional(),
     items: z
-        .array(ApplicationItemSchema)
+        .array(
+            z.object({
+                itemId: z.object({
+                    value: z.string().uuid(),
+                    label: z.string(),
+                }),
+                applicationRate: z
+                    .number()
+                    .min(0, "Application rate must be non-negative"),
+            })
+        )
         .min(1, "At least one item is required"),
 });
 
@@ -61,6 +75,10 @@ export const SprayCalculatorSchema = z.object({
     waterVolume: z.number().min(0, "Water volume must be non-negative"),
     nozzleSpacing: z.number().min(0, "Nozzle spacing must be non-negative"),
     area: z.number().min(0, "Area must be non-negative"),
+    sprayer: z.object({
+        value: z.string().uuid(),
+        label: z.string(),
+    }),
     items: z
         .array(
             z.object({

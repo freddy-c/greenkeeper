@@ -6,14 +6,9 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import ApplicationCalculator from "./application-calculator";
-import { Item, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import prisma from "@/app/client";
-
-type ItemsWithProduct = Prisma.ItemGetPayload<{
-    include: {
-        product: true;
-    };
-}>;
+import { ItemsWithProduct, Sprayer, toSprayer } from "@/app/types";
 
 export default async function CalculatorPage() {
     const items: ItemsWithProduct[] = await prisma.item.findMany({
@@ -21,6 +16,14 @@ export default async function CalculatorPage() {
             product: true,
         },
     });
+
+    const sprayerWithEquipment = await prisma.sprayer.findMany({
+        include: {
+            equipment: true,
+        },
+    });
+
+    const sprayers: Sprayer[] = sprayerWithEquipment.map(toSprayer);
 
     return (
         <div className="grid max-w-full-lg gap-4">
@@ -36,7 +39,10 @@ export default async function CalculatorPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-6">
-                                <ApplicationCalculator items={items} />
+                                <ApplicationCalculator
+                                    items={items}
+                                    sprayers={sprayers}
+                                />
                             </div>
                         </CardContent>
                     </Card>
