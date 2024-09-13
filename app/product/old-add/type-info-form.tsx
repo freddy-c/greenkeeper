@@ -39,8 +39,6 @@ export default function TypeInfoForm({
             sulfur: formData?.typeInfo?.sulfur,
             iron: formData?.typeInfo?.iron,
             manganese: formData?.typeInfo?.manganese,
-            longevity: formData?.typeInfo?.longevity,
-            turfResponse: formData?.typeInfo?.turfResponse,
             maxIndividualRate: formData?.typeInfo?.maxIndividualRate,
             maxNoOfApplications: formData?.typeInfo?.maxNoOfApplications,
         },
@@ -49,7 +47,7 @@ export default function TypeInfoForm({
     const onSubmit = async (data: TypeInfo) => {
         updateFormData({ typeInfo: data });
         handleNext();
-
+        console.log("Called!");
         console.log(data);
     };
 
@@ -237,46 +235,6 @@ export default function TypeInfoForm({
                                         </FormItem>
                                     )}
                                 />
-                                <FormField
-                                    control={form.control}
-                                    name="longevity"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Longevity</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="number"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormDescription>
-                                                This is the longevity of the
-                                                fertilizer.
-                                            </FormDescription>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="turfResponse"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Turf Response</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="number"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormDescription>
-                                                This is the turf response to the
-                                                fertilizer.
-                                            </FormDescription>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
                             </div>
                         )}
 
@@ -327,6 +285,10 @@ export default function TypeInfoForm({
                                     )}
                                 />
                             </div>
+                        )}
+
+                        {formData?.generalInfo.type === "WettingAgent" && (
+                            <div className="space-y-8"></div>
                         )}
 
                         <Button onClick={onPrevious}>Previous</Button>
