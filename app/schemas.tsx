@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
 export const AddManufacturerSchema = z.object({
@@ -13,19 +14,69 @@ export const AddItemSchema = z.object({
         value: z.string().uuid(),
         label: z.string(),
     }),
-    price: z.number().positive(),
+    price: z.coerce.number().positive(),
     purchaseDate: z.string().date(),
-    initialQuantity: z.number().positive(),
-    currentQuantity: z.number().positive(),
+    initialQuantity: z.coerce.number().positive(),
+    currentQuantity: z.coerce.number().positive(),
 });
 
-export const AddProductSchema = z.object({
+export const ProductFormSchema = z.object({
     name: z.string().min(1, "Product name is required"),
     manufacturer: z.object({
         value: z.string().uuid(),
         label: z.string(),
     }),
+    type: z.enum([
+        "Fertiliser",
+        "WettingAgent",
+        "Herbicide",
+        "Fungicide",
+        "GrowthRegulator",
+    ]),
+    form: z.enum(["Granular", "Liquid", "Soluble"]),
+
+    // Fertiliser-only fields
+    nitrogen: z.coerce
+        .number()
+        .min(0, { message: "Nitrogen must be at least 0" })
+        .optional(),
+    potassium: z.coerce
+        .number()
+        .min(0, { message: "Potassium must be at least 0" })
+        .optional(),
+    phosphorus: z.coerce
+        .number()
+        .min(0, { message: "Phosphorus must be at least 0" })
+        .optional(),
+    calcium: z.coerce
+        .number()
+        .min(0, { message: "Calcium must be at least 0" })
+        .optional(),
+    magnesium: z.coerce
+        .number()
+        .min(0, { message: "Magnesium must be at least 0" })
+        .optional(),
+    sulfur: z.coerce
+        .number()
+        .min(0, { message: "Sulfur must be at least 0" })
+        .optional(),
+    iron: z.coerce
+        .number()
+        .min(0, { message: "Iron must be at least 0" })
+        .optional(),
+    manganese: z.coerce
+        .number()
+        .min(0, { message: "Manganese must be at least 0" })
+        .optional(),
+
+    // Liquid-only field
+    specificGravity: z.coerce
+        .number()
+        .min(0, { message: "Specific gravity must be at least 0" })
+        .optional(),
 });
+
+export type ProductFormType = z.infer<typeof ProductFormSchema>;
 
 const ApplicationItemSchema = z.object({
     itemId: z.string().uuid(),
@@ -99,3 +150,11 @@ export const AddSprayerSchema = z.object({
     tankCapacity: z.number().positive(),
     nozzleSpacing: z.number().positive(),
 });
+
+const productWithManufacturer = Prisma.validator<Prisma.ProductDefaultArgs>()({
+    include: { manufacturer: true },
+});
+
+export type ProductWithManufacturer = Prisma.ProductGetPayload<
+    typeof productWithManufacturer
+>;

@@ -8,7 +8,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Distributor, Product } from "@prisma/client";
-import AddItemForm from "./add-item-form";
+import ItemForm from "../item-form";
 import prisma from "../../../client";
 import { ChevronLeft } from "lucide-react";
 
@@ -45,7 +45,7 @@ export default async function AddInventoryPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-6">
-                                <AddItemForm
+                                <ItemForm
                                     products={products}
                                     distributors={distributors}
                                 />

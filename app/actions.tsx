@@ -3,12 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "./client";
-import { FormType, Item, Manufacturer, ProductType } from "@prisma/client";
+import { Item, Manufacturer } from "@prisma/client";
 import {
     AddManufacturerSchema,
     AddItemSchema,
-    AddProductSchema,
     AddSprayerSchema,
+    ProductFormType,
+    ProductFormSchema,
 } from "./schemas";
 
 const db = prisma;
@@ -148,6 +149,156 @@ export async function createItem(data: z.infer<typeof AddItemSchema>): Promise<{
         };
     } catch (e) {
         return { success: false };
+    }
+}
+
+export async function createProduct(data: ProductFormType): Promise<{
+    success: boolean;
+    message?: string;
+    product?: any;
+    issues?: {
+        path: any;
+        message: string;
+    }[];
+}> {
+    const parsed = ProductFormSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            issues: parsed.error.issues.map((issue) => {
+                return { path: issue.path, message: issue.message };
+            }),
+        };
+    }
+
+    try {
+        // Construct the data object for Prisma
+        const productData = {
+            name: parsed.data.name,
+            manufacturerId: parsed.data.manufacturer.value,
+            type: parsed.data.type,
+            form: parsed.data.form,
+            nitrogen:
+                parsed.data.type === "Fertiliser" ? parsed.data.nitrogen : null,
+            potassium:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.potassium
+                    : null,
+            phosphorus:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.phosphorus
+                    : null,
+            calcium:
+                parsed.data.type === "Fertiliser" ? parsed.data.calcium : null,
+            magnesium:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.magnesium
+                    : null,
+            sulfur:
+                parsed.data.type === "Fertiliser" ? parsed.data.sulfur : null,
+            iron: parsed.data.type === "Fertiliser" ? parsed.data.iron : null,
+            manganese:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.manganese
+                    : null,
+            specificGravity:
+                parsed.data.form === "Liquid"
+                    ? parsed.data.specificGravity
+                    : null,
+        };
+
+        // Create the product in the database
+        const newProduct = await prisma.product.create({
+            data: productData,
+        });
+
+        revalidatePath("/product");
+
+        return {
+            success: true,
+            product: newProduct,
+        };
+    } catch (e) {
+        console.log(e);
+        return { success: false, message: "Failed to create product" };
+    }
+}
+
+export async function editProduct(
+    productId: string,
+    data: ProductFormType
+): Promise<{
+    success: boolean;
+    message?: string;
+    product?: any;
+    issues?: {
+        path: any;
+        message: string;
+    }[];
+}> {
+    const parsed = ProductFormSchema.safeParse(data);
+
+    if (!parsed.success) {
+        return {
+            success: false,
+            issues: parsed.error.issues.map((issue) => {
+                return { path: issue.path, message: issue.message };
+            }),
+        };
+    }
+
+    try {
+        // Construct the data object for Prisma
+        const productData = {
+            name: parsed.data.name,
+            manufacturerId: parsed.data.manufacturer.value,
+            type: parsed.data.type,
+            form: parsed.data.form,
+            nitrogen:
+                parsed.data.type === "Fertiliser" ? parsed.data.nitrogen : null,
+            potassium:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.potassium
+                    : null,
+            phosphorus:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.phosphorus
+                    : null,
+            calcium:
+                parsed.data.type === "Fertiliser" ? parsed.data.calcium : null,
+            magnesium:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.magnesium
+                    : null,
+            sulfur:
+                parsed.data.type === "Fertiliser" ? parsed.data.sulfur : null,
+            iron: parsed.data.type === "Fertiliser" ? parsed.data.iron : null,
+            manganese:
+                parsed.data.type === "Fertiliser"
+                    ? parsed.data.manganese
+                    : null,
+            specificGravity:
+                parsed.data.form === "Liquid"
+                    ? parsed.data.specificGravity
+                    : null,
+        };
+
+        // Update the product in the database
+        const updatedProduct = await prisma.product.update({
+            where: { id: productId },
+            data: productData,
+        });
+
+        revalidatePath("/product");
+
+        return {
+            success: true,
+            product: updatedProduct,
+        };
+    } catch (e) {
+        console.log(e);
+        return { success: false, message: "Failed to update product" };
     }
 }
 

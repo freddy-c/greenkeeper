@@ -6,8 +6,8 @@ import Select from "react-select";
 import { Product, Distributor } from "@prisma/client";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AddItemSchema } from "../../../schemas";
-import { createItem } from "../../../actions";
+import { AddItemSchema } from "../../schemas";
+import { createItem } from "../../actions";
 
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -32,6 +32,8 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ItemWithProductDistributor } from "./schemas";
+import { editItem } from "./actions";
 
 type AddItemFormValues = z.infer<typeof AddItemSchema>;
 
@@ -82,48 +84,68 @@ const selectStyles = {
     }),
 };
 
-export default function AddItemForm({
+export default function ItemForm({
     products,
     distributors,
+    item,
 }: {
     products: Product[];
     distributors: Distributor[];
+    item?: ItemWithProductDistributor;
 }) {
     const router = useRouter();
 
     const form = useForm<AddItemFormValues>({
+        defaultValues: item
+            ? {
+                  product: {
+                      value: item.productId,
+                      label: item.product.name,
+                  },
+                  distributor: {
+                      value: item.distributorId,
+                      label: item.distributor.name,
+                  },
+                  price: item.price,
+                  purchaseDate: format(item.purchaseDate, "yyyy-MM-dd"),
+                  initialQuantity: item.initialQuantity,
+                  currentQuantity: item.currentQuantity,
+              }
+            : undefined,
         resolver: zodResolver(AddItemSchema),
     });
 
     const onSubmit = async (data: AddItemFormValues) => {
-        const response = await createItem(data);
+        if (item) {
+            const response = await editItem(item.id, data);
 
-        if (!response.success) {
-            response.issues?.forEach((issue) => {
-                issue.path.forEach((pathElement: any) => {
-                    form.setError(pathElement, {
-                        type: "manual",
-                        message: issue.message,
+            if (!response.success) {
+                response.issues?.forEach((issue) => {
+                    issue.path.forEach((pathElement: any) => {
+                        form.setError(pathElement, {
+                            type: "manual",
+                            message: issue.message,
+                        });
                     });
                 });
-            });
+            } else {
+                router.push("/dashboard/inventory");
+            }
         } else {
-            // form.reset({
-            //     product: {
-            //         value: "",
-            //         label: "",
-            //     },
-            //     distributor: {
-            //         value: "",
-            //         label: "",
-            //     },
-            //     price: 0,
-            //     purchaseDate: "",
-            //     initialQuantity: 0,
-            //     currentQuantity: 0,
-            // });
+            const response = await createItem(data);
 
-            router.push("/dashboard/inventory");
+            if (!response.success) {
+                response.issues?.forEach((issue) => {
+                    issue.path.forEach((pathElement: any) => {
+                        form.setError(pathElement, {
+                            type: "manual",
+                            message: issue.message,
+                        });
+                    });
+                });
+            } else {
+                router.push("/dashboard/inventory");
+            }
         }
     };
 
@@ -202,14 +224,8 @@ export default function AddItemForm({
                                 <FormControl>
                                     <Input
                                         type="number"
+                                        step="0.01"
                                         {...field}
-                                        value={field.value || ""}
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseFloat(e.target.value) || ""
-                                            )
-                                        }
-                                        aria-label="price"
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -293,15 +309,8 @@ export default function AddItemForm({
                                 <FormControl>
                                     <Input
                                         type="number"
+                                        step="0.01"
                                         {...field}
-                                        value={field.value || ""}
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value, 10) ||
-                                                    ""
-                                            )
-                                        }
-                                        aria-label="initialQuantity"
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -321,15 +330,8 @@ export default function AddItemForm({
                                 <FormControl>
                                     <Input
                                         type="number"
+                                        step="0.01"
                                         {...field}
-                                        value={field.value || ""}
-                                        onChange={(e) =>
-                                            field.onChange(
-                                                parseInt(e.target.value, 10) ||
-                                                    ""
-                                            )
-                                        }
-                                        aria-label="currentQuantity"
                                     />
                                 </FormControl>
                                 <FormDescription>
@@ -340,7 +342,7 @@ export default function AddItemForm({
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Add Item</Button>
+                    <Button type="submit">{item ? "Update" : "Add"}</Button>
                 </form>
             </Form>
         </div>
