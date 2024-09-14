@@ -1,6 +1,8 @@
-import { Item } from "@prisma/client";
+import Link from "next/link";
 import prisma from "@/app/client";
 import { ItemWithProductDistributor } from "./schemas";
+
+import { Button } from "@/components/ui/button";
 
 export default async function InventoryPage() {
     const items: ItemWithProductDistributor[] = await prisma.item.findMany({
@@ -19,6 +21,10 @@ export default async function InventoryPage() {
                         <strong>{item.product.name}</strong> - Distributed by{" "}
                         {item.distributor.name}, Price: £{item.price.toFixed(2)}
                         , Quantity: {item.currentQuantity}
+                        {/* Edit button */}
+                        <Link href={`/dashboard/inventory/edit/${item.id}`}>
+                            <Button variant="link">Edit</Button>
+                        </Link>
                     </li>
                 ))}
             </ul>
