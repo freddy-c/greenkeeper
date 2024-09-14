@@ -14,10 +14,10 @@ export const AddItemSchema = z.object({
         value: z.string().uuid(),
         label: z.string(),
     }),
-    price: z.number().positive(),
+    price: z.coerce.number().positive(),
     purchaseDate: z.string().date(),
-    initialQuantity: z.number().positive(),
-    currentQuantity: z.number().positive(),
+    initialQuantity: z.coerce.number().positive(),
+    currentQuantity: z.coerce.number().positive(),
 });
 
 export const ProductFormSchema = z.object({
@@ -155,4 +155,6 @@ const productWithManufacturer = Prisma.validator<Prisma.ProductDefaultArgs>()({
     include: { manufacturer: true },
 });
 
-export type ProductWithManufacturer = Prisma.ProductGetPayload<typeof productWithManufacturer>
+export type ProductWithManufacturer = Prisma.ProductGetPayload<
+    typeof productWithManufacturer
+>;
