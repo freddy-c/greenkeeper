@@ -67,11 +67,14 @@ model Application {
   operator         String
   sprayer          Sprayer            @relation(fields: [sprayerId], references: [id])
   ApplicationItems ApplicationItems[]
+  startTime        DateTime
+  endTime          DateTime
   waterVolume      Float
   temperature      Float
   windSpeed        Float
   observations     String
   sprayerId        String
+  areasTreated     ManagementZone[]
 }
 
 model ApplicationItems {
@@ -85,10 +88,12 @@ model ApplicationItems {
 }
 
 model ManagementZone {
-  id   String @id @default(uuid())
-  name String
+  id            String       @id @default(uuid())
+  name          String
   // area        Float
   // coordinates String[]
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId String?
 }
 
 model Equipment {
