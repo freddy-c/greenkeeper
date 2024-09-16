@@ -10,8 +10,8 @@ export const ApplicationSchema = z.object({
         .optional(),
     operator: z.string().min(1, "Operator name is required"),
     method: z.enum(["Broadcast", "Spray"]),
-    startTime: z.string().date(),
-    endTime: z.string().date(),
+    startTime: z.date(),
+    endTime: z.date(),
     waterVolume: z
         .number()
         .min(0, "Water volume must be non-negative")
