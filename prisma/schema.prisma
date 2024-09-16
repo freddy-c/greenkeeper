@@ -65,15 +65,16 @@ model Application {
   id               String             @id @default(uuid())
   date             DateTime
   operator         String
-  sprayer          Sprayer            @relation(fields: [sprayerId], references: [id])
+  method           ApplicationMethod
+  sprayer          Sprayer?           @relation(fields: [sprayerId], references: [id])
+  sprayerId        String?
   ApplicationItems ApplicationItems[]
   startTime        DateTime
   endTime          DateTime
-  waterVolume      Float
+  waterVolume      Float?
   temperature      Float
   windSpeed        Float
   observations     String
-  sprayerId        String
   areasTreated     ManagementZone[]
 }
 
@@ -90,7 +91,7 @@ model ApplicationItems {
 model ManagementZone {
   id            String       @id @default(uuid())
   name          String
-  // area        Float
+  area          Float
   // coordinates String[]
   Application   Application? @relation(fields: [applicationId], references: [id])
   applicationId String?
@@ -128,4 +129,9 @@ enum FormType {
   Granular
   Liquid
   Soluble
+}
+
+enum ApplicationMethod {
+  Broadcast
+  Spray
 }

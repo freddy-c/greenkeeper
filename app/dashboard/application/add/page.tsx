@@ -6,9 +6,10 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 
-import AddApplicationForm from "./add-application-form";
+import ApplicationForm from "../application-form";
 import prisma from "@/app/client";
 import { ItemsWithProduct, Sprayer, toSprayer } from "@/app/types";
+import { ManagementZone } from "@prisma/client";
 
 export default async function AddApplicationPage() {
     const sprayerWithEquipment = await prisma.sprayer.findMany({
@@ -56,6 +57,9 @@ export default async function AddApplicationPage() {
         };
     });
 
+    const managementZones: ManagementZone[] =
+        await prisma.managementZone.findMany();
+
     return (
         <div className="grid max-w-full-lg gap-4">
             {JSON.stringify(combinedResult)}
@@ -71,9 +75,10 @@ export default async function AddApplicationPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-6">
-                                <AddApplicationForm
+                                <ApplicationForm
                                     sprayers={sprayers}
                                     items={items}
+                                    managementZones={managementZones}
                                 />
                             </div>
                         </CardContent>

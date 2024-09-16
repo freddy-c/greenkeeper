@@ -26,6 +26,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+
 import { Manufacturer, Product } from "@prisma/client";
 
 import {
