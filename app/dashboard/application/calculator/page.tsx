@@ -11,19 +11,38 @@ import prisma from "@/app/client";
 import { ItemsWithProduct, Sprayer, toSprayer } from "@/app/types";
 
 export default async function CalculatorPage() {
-    const items: ItemsWithProduct[] = await prisma.item.findMany({
-        include: {
-            product: true,
+    const items = [
+        {
+            "id": 1,
+            "product": {
+                "id": "1",
+                "name": "H2Pro Trismart"
+            }
+        }
+    ]
+    const sprayers = [
+        {
+            "id": "1",
+            "name": "Boom Sprayer"
         },
-    });
+        {
+            "id": "2",
+            "name": "Knapsack"
+        }
+    ]
+    // const items: ItemsWithProduct[]; = await prisma.item.findMany({
+    //     include: {
+    //         product: true,
+    //     },
+    // });
 
-    const sprayerWithEquipment = await prisma.sprayer.findMany({
-        include: {
-            equipment: true,
-        },
-    });
+    // const sprayerWithEquipment = await prisma.sprayer.findMany({
+    //     include: {
+    //         equipment: true,
+    //     },
+    // });
 
-    const sprayers: Sprayer[] = sprayerWithEquipment.map(toSprayer);
+    // const sprayers: Sprayer[] = sprayerWithEquipment.map(toSprayer);
 
     return (
         <div className="grid max-w-full-lg gap-4">
@@ -33,8 +52,7 @@ export default async function CalculatorPage() {
                         <CardHeader>
                             <CardTitle>Application Calculator</CardTitle>
                             <CardDescription>
-                                Lipsum dolor sit amet, consectetur adipiscing
-                                elit
+                            This spray calculator determines the required nozzle output (L/min) to apply a product at the specified rate and water volume. It also calculates the sprayer pressure needed to achieve this output.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
